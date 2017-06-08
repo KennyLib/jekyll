@@ -12,5 +12,12 @@ title: Kenny's Library
             </td>
         </tr>
         {% endfor %}
+        {% for article in site.data.articles %}
+        <tr>
+            <td>
+                <a href="{{ post.url }}">{{ post.date | date_to_string }} {{ post.title }}</a>
+            </td>
+        </tr>
+        {% endfor %}
     </tbody>
 </table>
