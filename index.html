@@ -1,0 +1,16 @@
+---
+layout: default
+title: Kenny's Library
+---
+<p>最新文章</p>
+<table class="table table-hover">
+    <tbody>
+        {% for post in site.posts %}
+        <tr>
+            <td>
+                <a href="{{ post.url }}">{{ post.date | date_to_string }} {{ post.title }}</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
