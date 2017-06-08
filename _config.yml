@@ -1,4 +1,4 @@
+theme: jekyll-theme-merlot
 baseurl: /kennylib.github.io
 permalink: /Article/:title
 
-theme: jekyll-theme-merlot
