@@ -2,4 +2,12 @@
 layout: default
 title: Kenny's Library
 ---
-contact
+{% for article in site.data.articles %}
+  ID:article.ID
+  <br/>
+  title:article.title
+  <br/>
+  content:article.content
+  <br/>
+  author:article.author
+{% endfor %}
