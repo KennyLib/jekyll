@@ -2,36 +2,141 @@
 layout: article 
 title: 微服务：分解为可部署性和可扩展性的应用 
 ---
-    <div class="well">
-        A note to our readers: As per your request we have developed a set of features that allow you to reduce the noise, while
-        not losing sight of anything that is important. Get email and web notifications by choosing the topics you are interested
-        in.
-    </div>
-    <div>
-        <p>
-            This article describes the increasingly popular Microservice architecture pattern. The big idea behind microservices is to architect large, complex and long-lived applications as a set of cohesive services that evolve over time. The term microservices strongly suggests that the services should be small.
-        </p>    
-        <p>
-            Some in the community even advocate building 10-100 LOC services. However, while it’s desirable to have small services, that should not be the main goal. Instead, you should aim to decompose your system into services to solve the kinds of development and deployment problems discussed below. Some services might indeed be tiny where as others might be quite large.
-        </p>
-        <p>
-            The essence of the microservice architecture is not new. The concept of a distributed system is very old. The microservice architecture also resembles SOA.
-        </p>
-        <p>
-            It has even been called lightweight or fine-grained SOA. And indeed, one way to think about microservice architecture is that it’s SOA without the commercialization and perceived baggage of WS* and ESB. Despite not being an entirely novel idea, the microservice architecture is still worthy of discussion since it is different than traditional SOA and, more importantly, it solves many of the problems that many organizations currently suffer from.
-        </p>  
-        <p>     
-            In this article, you will learn about the motivations for using the microservice architecture and how it compares with the more traditional, monolithic architecture. We discuss the benefits and drawbacks of microservices. You will learn how to solve some of the key technical challenges with using the microservice architecture including inter-service communication and distributed data management.
-        </p>
-        <h3>The (sometimes evil) monolith</h3>
-        <p>
-            Since the earliest days of developing applications for the web, the most widely used enterprise application architecture has been one that packages all the application’s server-side components into a single unit. Many enterprise Java applications consist of a single WAR or EAR file. The same is true of other applications written in other languages such as Ruby and even C++.
-        </p>  
-        <p>   
-            Let’s imagine, for example, that you are building an online store that takes orders from customers, verifies inventory and available credit, and ships them. It’s quite likely that you would build an application like the one shown in figure 1.
-        </p>
-        <img src="{{ site.baseurl }}/components/Image/Fig1-small.png" alt="">
-        <h5>Figure 1 - the monolithic architecture</h5>
-    </div>
+<div class="well">
+    A note to our readers: As per your request we have developed a set of features that allow you to reduce the noise, while
+    not losing sight of anything that is important. Get email and web notifications by choosing the topics you are interested
+    in.
+</div>
+<div>
+    <p>
+        This article describes the increasingly popular Microservice architecture pattern. The big idea behind microservices is to
+        architect large, complex and long-lived applications as a set of cohesive services that evolve over time. The term
+        microservices strongly suggests that the services should be small.
+    </p>
+    <p>
+        Some in the community even advocate building 10-100 LOC services. However, while it’s desirable to have small services, that
+        should not be the main goal. Instead, you should aim to decompose your system into services to solve the kinds of
+        development and deployment problems discussed below. Some services might indeed be tiny where as others might be
+        quite large.
+    </p>
+    <p>
+        The essence of the microservice architecture is not new. The concept of a distributed system is very old. The microservice
+        architecture also resembles SOA.
+    </p>
+    <p>
+        It has even been called lightweight or fine-grained SOA. And indeed, one way to think about microservice architecture is
+        that it’s SOA without the commercialization and perceived baggage of WS* and ESB. Despite not being an entirely novel
+        idea, the microservice architecture is still worthy of discussion since it is different than traditional SOA and,
+        more importantly, it solves many of the problems that many organizations currently suffer from.
+    </p>
+    <p>
+        In this article, you will learn about the motivations for using the microservice architecture and how it compares with the
+        more traditional, monolithic architecture. We discuss the benefits and drawbacks of microservices. You will learn
+        how to solve some of the key technical challenges with using the microservice architecture including inter-service
+        communication and distributed data management.
+    </p>
+    <h3>The (sometimes evil) monolith</h3>
+    <p>
+        Since the earliest days of developing applications for the web, the most widely used enterprise application architecture
+        has been one that packages all the application’s server-side components into a single unit. Many enterprise Java
+        applications consist of a single WAR or EAR file. The same is true of other applications written in other languages
+        such as Ruby and even C++.
+    </p>
+    <p>
+        Let’s imagine, for example, that you are building an online store that takes orders from customers, verifies inventory and
+        available credit, and ships them. It’s quite likely that you would build an application like the one shown in figure
+        1.
+    </p>
+    <img src="{{ site.baseurl }}/components/Image/Fig1-small.png" alt="">
+    <h5>Figure 1 - the monolithic architecture</h5>
+    <p>
+        The application consists of several components including the StoreFront UI, which implements the user interface, along with
+        services for managing the product catalog, processing orders and managing the customer’s account. These services
+        share a domain model consisting of entities such as Product, Order, and Customer.
+    </p>
+    <p>
+        Despite having a logically modular design, the application is deployed as a monolith. For example, if you were using Java
+        then the application would consist of a single WAR file running on a web container such as Tomcat. The Rails version
+        of the application would consist of a single directory hierarchy deployed using either, for example, Phusion Passenger
+        on Apache/Nginx or JRuby on Tomcat.
+    </p>
+    <p>
+        This so-called monolithic architecture has a number of benefits. Monolithic applications are simple to develop since IDEs
+        and other development tools are oriented around developing a single application. They are easy to test since you
+        just need to launch the one application. Monolithic applications are also simple to deploy since you just have to
+        copy the deployment unit – a file or directory – to a machine running the appropriate kind of server.
+    </p>
+    <p>
+        This approach works well for relatively small applications. However, the monolithic architecture becomes unwieldy for complex
+        applications. A large monolithic application can be difficult for developers to understand and maintain. It is also
+        an obstacle to frequent deployments. To deploy changes to one application component you have to build and deploy
+        the entire monolith, which can be complex, risky, time consuming, require the coordination of many developers and
+        result in long test cycles.
+    </p>
+    <p>
+        A monolithic architecture also makes it difficult to trial and adopt new technologies. It’s difficult, for example, to try
+        out a new infrastructure framework without rewriting the entire application, which is risky and impractical. Consequently,
+        you are often stuck with the technology choices that you made at the start of the project. In other words, the monolithic
+        architecture doesn’t scale to support large, long-lived applications.
+    </p>
+    <h3>Decomposing applications into services</h3>
+    <p>Fortunately, there are other architectural styles that do scale. The book, The Art of Scalability, describes a really
+        useful, three dimension scalability model: the scale cube, which is shown in Figure 2.</p>
+    <img src="{{ site.baseurl }}/components/Image/1Fig2-small.png.png" alt="">
+    <h5>Figure 2 - the scale cube</h5>
+    <p>
+        In this model, the commonly used approach of scaling an application by running multiple identical copies of the application
+        behind a load balancer is known as X-axis scaling. That’s a great way of improving the capacity and the availability
+        of an application.
+    </p>
+    <p>
+        When using Z-axis scaling each server runs an identical copy of the code. In this respect, it’s similar to X-axis scaling.
+        The big difference is that each server is responsible for only a subset of the data. Some component of the system
+        is responsible for routing each request to the appropriate server. One commonly used routing criteria is an attribute
+        of the request such as the primary key of the entity being accessed, i.e. sharding. Another common routing criteria
+        is the customer type. For example, an application might provide paying customers with a higher SLA than free customers
+        by routing their requests to a different set of servers with more capacity.
+    </p>
+    <p>
+        Z-axis scaling, like X-axis scaling, improves the application’s capacity and availability. However, neither approach solves
+        the problems of increasing development and application complexity. To solve those problems we need to apply Y-axis
+        scaling.
+    </p>
+    <p>
+        The 3rd dimension to scaling is Y-axis scaling or functional decomposition. Where as Z-axis scaling splits things that are
+        similar, Y-axis scaling splits things that are different. At the application tier, Y-axis scaling splits a monolithic
+        application into a set of services. Each service implements a set of related functionality such as order management,
+        customer management etc.
+    </p>
+    <p>
+        Deciding how to partition a system into a set of services is very much an art but there are number of strategies that can
+        help. One approach is to partition services by verb or use case. For example, later on you will see that the partitioned
+        online store has a Checkout UI service, which implements the UI for the checkout use case.
+    </p>
+    <p>
+        Another partitioning approach is to partition the system by nouns or resources. This kind of service is responsible for all
+        operations that operate on entities/resources of a given type. For example, later on you will see how it makes sense
+        for the online store to have a Catalog service, which manages the catalog of products.
+    </p>
+    <p>
+        Ideally, each service should have only a small set of responsibilities. (Uncle) Bob Martin talks[PDF] about designing classes
+        using the Single Responsible Principle (SRP). The SRP defines a responsibility of class as a reason to change, and
+        that a class should only have one reason to change. It make sense to apply the SRP to service design as well.
+    </p>
+    <p>
+        Another analogy that helps with service design is the design of Unix utilities. Unix provides a large number of utilities
+        such as grep, cat and find. Each utility does exactly one thing, often exceptionally well, and can be combined with
+        other utilities using a shell script to perform complex tasks. It makes sense to model services on Unix utilities
+        and create single function services.
+    </p>
+    <p>
+        It’s important to note that the goal of decomposition is not to have tiny (e.g. 10-100 LOC as some argue) services simply
+        for the sake of it. Instead, the goal is to address the problems and limitations of the monolithic architecture described
+        above. Some services could very well be tiny but others will be substantially larger.
+    </p>
+    <p>
+        If we apply Y-axis decomposition to the example application we get the architecture shown in figure 3.
+    </p>
+</div>
 
-<p>{{ page.date | date_to_string }}</p>
+<p>{{ page.date | date_to_string }}    译文，原文转载自<a href="https://www.infoq.com/articles/microservices-intro?spm=5176.100239.blogcont2764.28.165d1d65h3CUB4#">《Microservices: Decomposing Applications for Deployability and Scalability》</a> </p>
