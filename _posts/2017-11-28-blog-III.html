@@ -3,9 +3,15 @@ layout: article
 title: 微服务：分解为可部署性和可扩展性的应用 
 ---
 <div class="well">
-    A note to our readers: As per your request we have developed a set of features that allow you to reduce the noise, while
-    not losing sight of anything that is important. Get email and web notifications by choosing the topics you are interested
-    in.
+    译文，原文转载自
+    <a href="https://www.infoq.com/articles/microservices-intro?spm=5176.100239.blogcont2764.28.165d1d65h3CUB4#">《Microservices: Decomposing Applications for Deployability and Scalability》</a>
+    <h3>About the Author</h3>
+    <p>Chris Richardson is a developer and architect. He is a Java Champion, a JavaOne rock star and the author of POJOs in
+        Action, which describes how to build enterprise Java applications with POJOs and frameworks such as Spring and Hibernate.
+        Chris is also the founder of the original Cloud Foundry, an early Java PaaS for Amazon EC2. He consults with organizations
+        to improve how they develop and deploy applications using technologies such as cloud computing, microservices, and
+        NoSQL. Twitter
+        <a href="https://twitter.com/crichardson">@crichardson</a>.</p>
 </div>
 <div>
     <p>
@@ -202,7 +208,8 @@ title: 微服务：分解为可部署性和可扩展性的应用
         using distributed transactions is difficult. IDEs and other development tools are focused on building monolithic
         applications and don't provide explicit support for developing distributed applications. Writing automated tests
         that involve multiple services is challenging. These are all issues that you don’t have to deal with in a monolithic
-        architecture.</p>
+        architecture.
+    </p>
     <p>The microservice architecture also introduces significant operational complexity. There are many more moving parts –
         multiple instances of different types of service – that must be managed in production. To do this successful you
         need a high-level of automation, either home-grown code or a PaaS-like technology such as Netflix Asgard and related
@@ -210,7 +217,8 @@ title: 微服务：分解为可部署性和可扩展性的应用
     <p>Also, deploying features that span multiple services requires careful coordination between the various development teams.
         You have to create a rollout plan that orders service deployments based on the dependencies between services. That’s
         quite different than when using a monolithic architecture where you can easily deploy updates to multiple components
-        atomically.</p>
+        atomically.
+    </p>
     <p>Another challenge with using the microservice architecture is deciding at what point during the lifecycle of the application
         you should use this architecture. When developing the first version of an application, you often do not have the
         problems that this architecture solves. Moreover, using an elaborate, distributed architecture will slow down development.</p>
@@ -224,7 +232,8 @@ title: 微服务：分解为可部署性和可扩展性的应用
         to a microservice architecture.</p>
     <p>Now that we have looked at the benefits and drawbacks let’s look at a couple of key design issues within a microservice
         architecture, beginning with communication mechanisms within the application and between the application and its
-        clients.</p>
+        clients.
+    </p>
     <h3>Communication mechanisms in a microservice architecture</h3>
     <p>In a microservice architecture, the patterns of communication between clients and the application, as well as between
         application components, are different than in a monolithic application. Let’s first look at the issue of how the
@@ -367,16 +376,10 @@ title: 微服务：分解为可部署性和可扩展性的应用
         Developers should implement new functionality as a standalone service and write glue code to integrate the service
         with the monolith. It also makes sense to iteratively identify components to extract from the monolith and turn into
         services. While the evolution is not easy, it’s better than trying to develop and maintain an unwieldy monolithic
-        application.</p>
-    <h3>About the Author</h3>
-    <p>Chris Richardson is a developer and architect. He is a Java Champion, a JavaOne rock star and the author of POJOs in
-        Action, which describes how to build enterprise Java applications with POJOs and frameworks such as Spring and Hibernate.
-        Chris is also the founder of the original Cloud Foundry, an early Java PaaS for Amazon EC2. He consults with organizations
-        to improve how they develop and deploy applications using technologies such as cloud computing, microservices, and
-        NoSQL. Twitter
-        <a href="https://twitter.com/crichardson">@crichardson</a>.</p>
+        application.
+    </p>
+
 </div>
 
-<p>{{ page.date | date_to_string }} 译文，原文转载自
-    <a href="https://www.infoq.com/articles/microservices-intro?spm=5176.100239.blogcont2764.28.165d1d65h3CUB4#">《Microservices: Decomposing Applications for Deployability and Scalability》</a>
+<p>{{ page.date | date_to_string }}
 </p>
